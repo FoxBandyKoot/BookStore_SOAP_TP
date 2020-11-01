@@ -1,47 +1,58 @@
 package com.example.accessingdatamysql.ws;
 
 import com.example.accessingdatamysql.models.dtos.AuthorDTO;
-//import com.example.accessingdatamysql.models.entities.Author;
+import com.example.accessingdatamysql.models.entities.Author;
 import com.example.accessingdatamysql.service.AuthorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import soapserver.api.author_ws.AddAuthorRequest;
+import soapserver.api.author_ws.AddAuthorResponse;
+import soapserver.api.author_ws.AuthorXSD;
+import soapserver.api.author_ws.DeleteAuthorRequest;
+import soapserver.api.author_ws.DeleteAuthorResponse;
+import soapserver.api.author_ws.GetAllAuthorsRequest;
+import soapserver.api.author_ws.GetAllAuthorsResponse;
+import soapserver.api.author_ws.GetAuthorByIdRequest;
+import soapserver.api.author_ws.GetAuthorByIdResponse;
+import soapserver.api.author_ws.UpdateAuthorRequest;
+import soapserver.api.author_ws.UpdateAuthorResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//public class AuthorEndpoint {
-//
-//    public static final String NAMESPACE_URI = "http://www.javaspringclub.com/authors-ws";
-//
-//    private AuthorService service;
-//
-//    public AuthorEndpoint() {
-//
-//    }
-//
-//    @Autowired
-//    public AuthorEndpoint(AuthorService service) {
-//        this.service = service;
-//    }
-//
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAuthorByIdRequest")
-//    @ResponsePayload
-//    public GetAuthorByIdResponse getAuthorById(@RequestPayload GetAuthorByIdRequest request) {
-//        GetAuthorByIdResponse response = new GetAuthorByIdResponse();
-//        Author author = service.getAuthorById(request.getAuthorId());
-//        AuthorDTO authorDTO = new AuthorDTO();
-//        BeanUtils.copyProperties(author, authorDTO);
-//        response.setAuthorDTO(authorDTO);
-//        return response;
-//
-//    }
-//
+public class AuthorEndpoint {
+
+    public static final String NAMESPACE_URI = "http://www.soapserver/api/author-ws";
+
+    private AuthorService service;
+
+    public AuthorEndpoint() {
+
+    }
+
+    @Autowired
+    public AuthorEndpoint(AuthorService service) {
+        this.service = service;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAuthorByIdRequest")
+    @ResponsePayload
+    public GetAuthorByIdResponse getAuthorById(@RequestPayload GetAuthorByIdRequest request) {
+        GetAuthorByIdResponse response = new GetAuthorByIdResponse();
+        Author author = service.getAuthorById(request.getAuthorId());
+        AuthorXSD authorXSD = new AuthorXSD();
+        BeanUtils.copyProperties(author, author);
+        response.setAuthor(authorXSD);
+        return response;
+    }
+
 //    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllAuthorsRequest")
 //    @ResponsePayload
-//    public GetAllAuthorsResponse getAllAuthors(@RequestPayload GetAllAuthorsRequest request) {
+//    public GetAllAuthorsResponse getAllAuthors(@RequestPayload
+//                                                       GetAllAuthorsRequest request) {
 //        GetAllAuthorsResponse response = new GetAllAuthorsResponse();
 //        List<AuthorDTO> authorDTOList = new ArrayList<AuthorDTO>();
 //        List<Author> authorList = service.getAllAuthors();
@@ -58,7 +69,8 @@ import java.util.List;
 //
 //    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addAuthorRequest")
 //    @ResponsePayload
-//    public AddAuthorResponse addAuthor(@RequestPayload AddAuthorRequest request) {
+//    public AddAuthorResponse addAuthor(@RequestPayload
+//                                               AddAuthorRequest request) {
 //        AddAuthorResponse response = new AddAuthorResponse();
 //        AuthorDTO newAuthorDTO = new AuthorDTO();
 //        ServiceStatus serviceStatus = new ServiceStatus();
@@ -84,7 +96,8 @@ import java.util.List;
 //
 //    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAuthorRequest")
 //    @ResponsePayload
-//    public UpdateAuthorResponse updateAuthor(@RequestPayload UpdateAuthorRequest request) {
+//    public UpdateAuthorResponse updateAuthor(@RequestPayload
+//                                                     UpdateAuthorRequest request) {
 //        UpdateAuthorResponse response = new UpdateAuthorResponse();
 //        ServiceStatus serviceStatus = new ServiceStatus();
 //        // 1. Find if author available
@@ -137,5 +150,5 @@ import java.util.List;
 //        response.setServiceStatus(serviceStatus);
 //        return response;
 //    }
-//
-//}
+
+}

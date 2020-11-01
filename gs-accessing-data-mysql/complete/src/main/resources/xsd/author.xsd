@@ -4,11 +4,11 @@
            elementFormDefault="qualified">
 
     <!-- AUTHOR -->
-    <xs:complexType name="author">
+    <xs:complexType name="authorXSD">
         <xs:sequence>
-            <xs:element name="authorId" type="xs:long" />
+            <xs:element name="authorId" type="xs:int" />
             <xs:element name="name" type="xs:string" />
-            <xs:element name="firstName" type="xs:long" />
+            <xs:element name="firstName" type="xs:int" />
             <xs:element name="bookIdList" type="tns:valuelist"/>
         </xs:sequence>
     </xs:complexType>
@@ -17,20 +17,20 @@
         <xs:sequence>
             <xs:element name="value" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="label" type="xs:long" use="required"/>
+        <xs:attribute name="label" type="xs:int" use="required"/>
     </xs:complexType>
 
     <xs:element name="getAuthorByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="authorId" type="xs:long"/>
+                <xs:element name="authorId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="getAuthorByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="author" type="tns:author"/>
+                <xs:element name="author" type="tns:authorXSD"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -41,7 +41,7 @@
     <xs:element name="getAllAuthorsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="author" type="tns:author" maxOccurs="unbounded"/>
+                <xs:element name="author" type="tns:authorXSD" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -60,7 +60,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-                <xs:element name="author" type="tns:author"/>
+                <xs:element name="author" type="tns:authorXSD"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -84,7 +84,7 @@
     <xs:element name="deleteAuthorRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="authorId" type="xs:long"/>
+                <xs:element name="authorId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -5,29 +5,30 @@
 
     <!-- BOOK -->
 
+
+    <xs:complexType name="bookXSD">
+        <xs:sequence>
+            <xs:element name="bookId" type="xs:int" />
+            <xs:element name="title" type="xs:string" />
+            <xs:element name="isbn" type="xs:int" />
+            <xs:element name="authorId" type="xs:int" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:element name="getBookByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="bookId" type="xs:long" />
+                <xs:element name="bookId" type="xs:int" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="getBookByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="book" type="tns:book" />
+                <xs:element name="book" type="tns:bookXSD" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:complexType name="book">
-        <xs:sequence>
-            <xs:element name="bookId" type="xs:long" />
-            <xs:element name="title" type="xs:string" />
-            <xs:element name="isbn" type="xs:long" />
-            <xs:element name="authorId" type="xs:long" />
-        </xs:sequence>
-    </xs:complexType>
 
     <xs:element name="getAllBooksRequest">
         <xs:complexType/>
@@ -35,7 +36,7 @@
     <xs:element name="getAllBooksResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="book" type="tns:book" maxOccurs="unbounded"/>
+                <xs:element name="book" type="tns:bookXSD" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -44,8 +45,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="title" type="xs:string"/>
-                <xs:element name="isbn" type="xs:long"/>
-                <xs:element name="authorId" type="xs:long"/>
+                <xs:element name="isbn" type="xs:int"/>
+                <xs:element name="authorId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -53,7 +54,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-                <xs:element name="book" type="tns:book"/>
+                <xs:element name="book" type="tns:bookXSD"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -77,7 +78,7 @@
     <xs:element name="deleteBookRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="bookId" type="xs:long"/>
+                <xs:element name="bookId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
